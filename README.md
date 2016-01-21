@@ -1,2 +1,2 @@
-# dar-auth-hazelcast-cache-client-java
-DAR auth hazelcast cache client for Java
+# dar-auth-hazelcast-cache-rest-impl-java
+dar-auth-hazelcast-cache-rest-impl-java
