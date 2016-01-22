@@ -27,13 +27,13 @@ public class HazelcastRestAddExecutor extends HazelcastAbstractExecutor {
             byte[] rawData;
 
             if(postData instanceof byte[]) {
+                rawData = (byte[]) postData;
+            } else {
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
                 ObjectOutputStream oos = new ObjectOutputStream(baos);
                 oos.writeObject(postData);
                 oos.close();
                 rawData = baos.toByteArray();
-            } else {
-                rawData = (byte[]) postData;
             }
 
             InputStream is = new ByteArrayInputStream(rawData);
