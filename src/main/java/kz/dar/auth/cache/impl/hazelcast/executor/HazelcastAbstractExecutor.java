@@ -4,6 +4,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 
@@ -21,23 +22,30 @@ public abstract class HazelcastAbstractExecutor implements HazelcastRestExecutor
     @Inject
     protected RequestConfig hazelcastRequestConfig;
 
-    protected static final int TIMEOUT = 1000;
+    protected static final int TIMEOUT = 10000;
+
+    private HazelcastExecutorResponseValueConverter responseValueConverter;
+
+    public HazelcastAbstractExecutor(HazelcastExecutorResponseValueConverter converter) {
+        responseValueConverter = converter;
+    }
 
     protected HazelcastExecutorResponse execute(HttpUriRequest uriRequest) {
         try {
-            HttpResponse response = hazelcastHttpClient.execute(uriRequest);
+
+            HttpClient client = HttpClientBuilder.create().build();
+            //HttpResponse response = hazelcastHttpClient.execute(uriRequest);
+            HttpResponse response = client.execute(uriRequest);
 
             HazelcastExecutorResponse result = new HazelcastExecutorResponse();
             result.setStatus(response.getStatusLine().getStatusCode());
-            if(response.getEntity() == null) {
-                result.setResponse("");
-            } else {
+            if(response.getEntity() != null) {
                 if(response.getEntity().getContentLength() != 0) {
-                    result.setResponse(new ObjectInputStream(response.getEntity().getContent()).readObject());
-                    EntityUtils.consumeQuietly(response.getEntity());
+                    result.setResponse(responseValueConverter.convert(response.getEntity().getContent()));
                 }
-            }
 
+                EntityUtils.consumeQuietly(response.getEntity());
+            }
             return result;
         } catch (Exception e) {
             getLogger().error("Unexpected cache error", e);

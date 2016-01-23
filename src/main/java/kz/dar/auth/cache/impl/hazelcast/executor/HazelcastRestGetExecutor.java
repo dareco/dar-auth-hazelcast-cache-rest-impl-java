@@ -13,6 +13,10 @@ public class HazelcastRestGetExecutor extends HazelcastAbstractExecutor {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(HazelcastRestGetExecutor.class);
 
+    public HazelcastRestGetExecutor(HazelcastExecutorResponseValueConverter converter) {
+        super(converter);
+    }
+
     @Override
     public HazelcastExecutorResponse execute(String url, Object data) {
         HttpGet httpGet = createMethod(url);

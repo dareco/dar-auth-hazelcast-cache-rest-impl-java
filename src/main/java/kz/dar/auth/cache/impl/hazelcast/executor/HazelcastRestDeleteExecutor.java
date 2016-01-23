@@ -13,6 +13,10 @@ public class HazelcastRestDeleteExecutor extends HazelcastAbstractExecutor {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(HazelcastRestDeleteExecutor.class);
 
+    public HazelcastRestDeleteExecutor(HazelcastExecutorResponseValueConverter converter) {
+        super(converter);
+    }
+
     @Override
     public HazelcastExecutorResponse execute(String url, Object data) {
         HttpDelete deleteMethod = new HttpDelete(url);

@@ -1,2 +1,2 @@
-# dar-auth-hazelcast-cache-rest-impl-java
-dar-auth-hazelcast-cache-rest-impl-java
+# Hazelcast REST client for Java
+REST client library to communicate with Hazelcast service.

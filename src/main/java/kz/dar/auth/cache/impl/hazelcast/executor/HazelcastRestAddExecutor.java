@@ -15,6 +15,10 @@ import java.io.*;
 public class HazelcastRestAddExecutor extends HazelcastAbstractExecutor {
     private static final Logger LOGGER = LoggerFactory.getLogger(HazelcastRestAddExecutor.class);
 
+    public HazelcastRestAddExecutor(HazelcastExecutorResponseValueConverter converter) {
+        super(converter);
+    }
+
     @Override
     public HazelcastExecutorResponse execute(String url, Object data) {
         HttpPost httpPost = createPostMethod(url, data);
