@@ -2,25 +2,25 @@ package kz.dar.auth.cache.impl.hazelcast.executor;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.config.AuthSchemes;
+import org.apache.http.client.config.CookieSpecs;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 
-import javax.inject.Inject;
-import java.io.ObjectInputStream;
+import java.util.Arrays;
 
 /**
  * @author Sabyrzhan Tynybayev
  * @date 27/10/15
  */
 public abstract class HazelcastAbstractExecutor implements HazelcastRestExecutor {
-    @Inject
-    protected HttpClient hazelcastHttpClient;
-
-    @Inject
-    protected RequestConfig hazelcastRequestConfig;
+    protected static final RequestConfig HAZELCAST_REQUEST_CONFIG = RequestConfig.custom()
+            .setCookieSpec(CookieSpecs.BEST_MATCH).setExpectContinueEnabled(true).setStaleConnectionCheckEnabled(true)
+            .setTargetPreferredAuthSchemes(Arrays.asList(AuthSchemes.NTLM, AuthSchemes.DIGEST))
+            .setProxyPreferredAuthSchemes(Arrays.asList(AuthSchemes.BASIC)).build();
 
     protected static final int TIMEOUT = 10000;
 
@@ -34,7 +34,6 @@ public abstract class HazelcastAbstractExecutor implements HazelcastRestExecutor
         try {
 
             HttpClient client = HttpClientBuilder.create().build();
-            //HttpResponse response = hazelcastHttpClient.execute(uriRequest);
             HttpResponse response = client.execute(uriRequest);
 
             HazelcastExecutorResponse result = new HazelcastExecutorResponse();

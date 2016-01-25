@@ -49,7 +49,7 @@ public class HazelcastRestAddExecutor extends HazelcastAbstractExecutor {
             entity.setContent(is);
             httpPost.setEntity(entity);
 
-            RequestConfig requestConfig = RequestConfig.copy(hazelcastRequestConfig)
+            RequestConfig requestConfig = RequestConfig.copy(HAZELCAST_REQUEST_CONFIG)
                     .setSocketTimeout(TIMEOUT).setConnectTimeout(TIMEOUT).setConnectionRequestTimeout(TIMEOUT).build();
             httpPost.setConfig(requestConfig);
             return httpPost;

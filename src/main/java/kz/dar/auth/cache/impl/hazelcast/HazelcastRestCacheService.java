@@ -9,7 +9,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,16 +19,35 @@ import java.util.List;
 public class HazelcastRestCacheService implements CacheService {
     private static final Logger LOGGER = LoggerFactory.getLogger(HazelcastRestCacheService.class);
 
-    @Inject
     private HazelcastRestExecutor addExecutor;
-
-    @Inject
     private HazelcastRestExecutor deleteExecutor;
-
-    @Inject
     private HazelcastRestExecutor getExecutor;
 
     private List<String> endpointUrls;
+
+    public HazelcastRestExecutor getAddExecutor() {
+        return addExecutor;
+    }
+
+    public void setAddExecutor(HazelcastRestExecutor addExecutor) {
+        this.addExecutor = addExecutor;
+    }
+
+    public HazelcastRestExecutor getDeleteExecutor() {
+        return deleteExecutor;
+    }
+
+    public void setDeleteExecutor(HazelcastRestExecutor deleteExecutor) {
+        this.deleteExecutor = deleteExecutor;
+    }
+
+    public HazelcastRestExecutor getGetExecutor() {
+        return getExecutor;
+    }
+
+    public void setGetExecutor(HazelcastRestExecutor getExecutor) {
+        this.getExecutor = getExecutor;
+    }
 
     public void setEndpointsAndMapName(List<String> endpoints, String mapName) {
         this.endpointUrls = new ArrayList<>();

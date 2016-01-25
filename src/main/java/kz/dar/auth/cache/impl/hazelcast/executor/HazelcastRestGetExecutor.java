@@ -27,7 +27,7 @@ public class HazelcastRestGetExecutor extends HazelcastAbstractExecutor {
     public HttpGet createMethod(String url) {
         HttpGet httpGet = new HttpGet(url);
 
-        RequestConfig requestConfig = RequestConfig.copy(hazelcastRequestConfig).setSocketTimeout(TIMEOUT).setConnectTimeout(TIMEOUT).setConnectionRequestTimeout(TIMEOUT).build();
+        RequestConfig requestConfig = RequestConfig.copy(HAZELCAST_REQUEST_CONFIG).setSocketTimeout(TIMEOUT).setConnectTimeout(TIMEOUT).setConnectionRequestTimeout(TIMEOUT).build();
         httpGet.setConfig(requestConfig);
         return httpGet;
     }

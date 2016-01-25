@@ -21,7 +21,7 @@ public class HazelcastRestDeleteExecutor extends HazelcastAbstractExecutor {
     public HazelcastExecutorResponse execute(String url, Object data) {
         HttpDelete deleteMethod = new HttpDelete(url);
 
-        RequestConfig requestConfig = RequestConfig.copy(hazelcastRequestConfig)
+        RequestConfig requestConfig = RequestConfig.copy(HAZELCAST_REQUEST_CONFIG)
                 .setSocketTimeout(TIMEOUT)
                 .setConnectTimeout(TIMEOUT)
                 .setConnectionRequestTimeout(TIMEOUT).build();
