@@ -17,6 +17,17 @@
         <apache-commons-lang.version>3.4</apache-commons-lang.version>
     </properties>
 
+    <distributionManagement>
+        <repository>
+            <id>artifactory</id>
+            <url>http://54.229.103.37/artifactory/java-release/</url>
+        </repository>
+        <snapshotRepository>
+            <id>artifactory</id>
+            <url>http://54.229.103.37/artifactory/java-snapshot/</url>
+        </snapshotRepository>
+    </distributionManagement>
+
     <dependencies>
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
